@@ -26,6 +26,7 @@
         {{- partial "head/meta.html" . -}}
         {{- partial "head/link.html" . -}}
         {{- partial "head/seo.html" . -}}
+        {{- partial "head/tailwindcss.html" . -}}
     </head>
     <body>
         {{- /* Check theme isDark before body rendering */ -}}
@@ -46,7 +47,7 @@
         {{- /* Body wrapper */ -}}
         <div class="wrapper">
             {{- partial "header.html" . -}}
-            <main class="main">
+            <main class="container main mx-auto">
                 <div class="container">
                     {{- block "content" . }}{{ end -}}
                 </div>

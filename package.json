@@ -5,20 +5,24 @@
   "main": "index.js",
   "dependencies": {},
   "devDependencies": {
-    "@babel/cli": "^7.8.4",
     "@babel/core": "^7.9.0",
-    "@babel/preset-env": "^7.9.5",
     "@fullhuman/postcss-purgecss": "^2.1.0",
     "autoprefixer": "^9.7.4",
     "babel-preset-minify": "^0.5.1",
-    "minimist": "^1.2.5",
+    "npm-run-all": "^4.1.5",
+    "parcel-bundler": "^1.12.4",
     "postcss-cli": "^7.1.0",
     "postcss-import": "^12.0.1",
+    "postcss-scss": "^2.0.0",
     "tailwindcss": "^1.2.0"
   },
   "scripts": {
-    "build": "npx babel src --out-file assets/js/theme.min.js --source-maps && hugo -v --source=exampleSite --themesDir=../.. -D --gc",
-    "start": "npm run build && hugo server --source=exampleSite --themesDir=../.. --disableFastRender",
+    "hugo:build": "hugo -v --source=exampleSite --themesDir=../.. -D --gc",
+    "hugo:start": "hugo server -v --source=exampleSite --themesDir=../.. --disableFastRender --gc",
+    "parcel:build": "parcel build src/js/theme.js --out-dir assets/js --out-file theme.min.js",
+    "build": "npm-run-all -s clean parcel:build hugo:build copy",
+    "start": "npm-run-all -s clean parcel:build hugo:start",
+    "clean": "rm -rf resources assets/js/",
     "copy": "rm -rf resources && cp -rf exampleSite/resources resources"
   },
   "repository": {
@@ -29,6 +33,6 @@
     "hugo",
     "theme"
   ],
-  "author": "Dillon",
+  "author": "codedge",
   "license": "MIT"
 }
